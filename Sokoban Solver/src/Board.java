@@ -148,4 +148,25 @@ public class Board {
 		}
 		return s;
 	}
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Board)){
+			return false;
+		}
+		Board board = (Board)obj;
+		if(board.length != this.length || board.width != this.width){
+			return false;
+		}
+		for (int i = 0; i < this.length; i++) {
+			for (int j = 0; j < this.width; j++) {
+				if(!this.getTile(j, i).equals(board.getTile(j, i))){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
 }

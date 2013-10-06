@@ -41,7 +41,7 @@ public class SokobanSolver {
 			}
 			return;
 //		action is useless
-		} else if (wentBack(t)) {
+		} else if (wentBack(b)) {
 			return;
 //		action array size is > max size stop
 		} else if(a.size() > maxActions){
@@ -65,25 +65,24 @@ public class SokobanSolver {
 	}
 
 
-	private static boolean wentBack(ArrayList<Tile> t) {
-		for (int i = 0; i < t.size(); i++) {
-			for (int j = 0; j < t.size(); j++) {
-				if(i == j){
-					continue;
-				}else if(t.get(i).x == t.get(j).x && t.get(i).y == t.get(j).y){
-					return true;
-				}
+	private static boolean wentBack(ArrayList<Board> b) {
+		Board lastBoard = b.get(b.size()-1);
+		for (int i = 0; i < b.size()-1; i++) {
+			if(b.get(i).equals(lastBoard)){
+				return true;
 			}
 		}
+//		for (int i = 0; i < b.size(); i++) {
+//			for (int j = 0; j < b.size(); j++) {
+//				if(i == j){
+//					continue;
+//				}else if(b.get(i).x == b.get(j).x && b.get(i).y == b.get(j).y){
+//					return true;
+//				}
+//			}
+//		}
 		return false;
 	}
-
-
-	private static boolean isOpposite(Action action, Action action2) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 
 	private static boolean isValid(Board b) {
 		for (int i = 0; i < b.getWidth(); i++) {
@@ -101,7 +100,6 @@ public class SokobanSolver {
 		return true;
 	}
 
-
 	private static boolean isSolved(Board b) {
 		for (int i = 0; i < b.getWidth(); i++) {
 			for (int j = 0; j < b.getLength(); j++) {
@@ -114,6 +112,14 @@ public class SokobanSolver {
 		return true;
 	}
 	
+	private static void printSolution(Action[] a, Board b) {
+		for (int i = 0; i < a.length; i++) {
+			b.performAction(a[i]);
+			System.out.println(b);
+			System.out.println("---------------");
+		}		
+	}
+
 	public static void main(String[] args) {
 		Board b = new Board(8,6);
 		Tile[] walls = {new Tile(2,0),new Tile(3,0),new Tile(4,0),new Tile(5,0),new Tile(6,0),new Tile(7,0),
@@ -137,13 +143,11 @@ public class SokobanSolver {
 		System.out.println(d);
 		System.out.print(b);
 		System.out.println("---------------");
-		for (int i = 0; i < a.length; i++) {
-			b.performAction(a[i]);
-			System.out.println(b);
-			System.out.println("---------------");
-		}
-//		solve(b);
+//		printSolution(a,b);
+		solve(b);
 	}
+
+
 
 
 	

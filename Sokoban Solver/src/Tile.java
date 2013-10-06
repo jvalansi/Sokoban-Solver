@@ -49,4 +49,20 @@ public class Tile {
 		return "(" + this.x +"," + this.y + ")";
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Tile)){
+			System.out.println("not tile");
+			return false;
+		}
+		Tile tile = (Tile)obj;
+		if(	tile.box != this.box ||
+			tile.player != this.player||
+			tile.target != this.target||
+			tile.wall != this.wall){
+			return false;
+		}
+		return true;
+	}
+	
 }
